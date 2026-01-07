@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension group="system" method="upgrade" type="plugin">
+    <name>Automatic WebP &amp; Image Resizer</name>
+    <author>Christian Adamini</author>
+    <creationDate>January 2026</creationDate>
+    <copyright>Copyright (C) 2026</copyright>
+    <license>GNU General Public License v2 or later</license>
+    <authorEmail>adamini@gmx.de</authorEmail>
+    <authorUrl>www.adamini-online.de</authorUrl>
+    <version>1.0.0</version>
+    <description>
+        Automatically resizes images over 1280px, converts them to WebP, 
+        and replaces HTML sources. Uses Joomla Cache for high performance.
+    </description>
+    <files>
+        <filename plugin="webpconverter">webpconverter.php</filename>
+    </files>
+    <config>
+        <fields name="params">
+            <fieldset name="basic">
+                <field name="note" type="note" label="Plugin Activated" description="This plugin runs automatically on all frontend pages." />
+            </fieldset>
+        </fields>
+    </config>
+</extension>
