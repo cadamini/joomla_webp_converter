@@ -1,24 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension group="system" method="upgrade" type="plugin">
-    <name>Automatic WebP &amp; Image Resizer</name>
+<extension type="plugin" group="system" method="upgrade">
+    <name>Image optimizer - Automatic WebP converter</name>
     <author>Christian Adamini</author>
-    <creationDate>January 2026</creationDate>
-    <copyright>Copyright (C) 2026</copyright>
-    <license>GNU General Public License v2 or later</license>
     <authorEmail>adamini@gmx.de</authorEmail>
-    <authorUrl>www.adamini-online.de</authorUrl>
-    <version>1.0.0</version>
-    <description>
-        Automatically resizes images over 1280px, converts them to WebP, 
-        and replaces HTML sources. Uses Joomla Cache for high performance.
-    </description>
+    <authorUrl>https://cadamini.github.io</authorUrl>
+    <creationDate>Januar 2026</creationDate>
+    <copyright>(C) 2026 Christian Adamini</copyright>
+    <license>GNU General Public License</license>
+    <version>3.0.2</version>
+    <description><![CDATA[
+        <div style="background: #f8f9fa; padding: 15px; border-left: 5px solid #28a745; border-radius: 4px;">
+            <strong style="font-size: 1.2em;">🚀 Maximale Performance für Joomla durch automatische WebP-Konvertierung</strong><br><br>
+            Optimiert die Ladezeit Ihrer Website vollautomatisch:
+            <ul style="margin-top: 10px;">
+                <li><strong>Zentraler Cache:</strong> Bilder werden in images/webp_cache/ isoliert (Galerie-kompatibel).</li>
+                <li><strong>Smart Resize:</strong> Skaliert Bilder automatisch auf eine sinnvolle Maximalbreite.</li>
+                <li><strong>Sicherheits-Check:</strong> Erkennt automatisch, ob Ihr Server WebP unterstützt.</li>
+            </ul>
+        </div>
+    ]]></description>
+    
     <files>
         <filename plugin="webpconverter">webpconverter.php</filename>
+        <filename>index.html</filename>
     </files>
+    
     <config>
         <fields name="params">
-            <fieldset name="basic">
-                <field name="note" type="note" label="Plugin Activated" description="This plugin runs automatically on all frontend pages." />
+            <fieldset name="basic" label="🔧 Einstellungen">
+                <field name="version_info" 
+                    type="note" 
+                    label="Plugin Status" 
+                    description="Version 3.0.2 (Stable)" 
+                    class="alert alert-info" />
+
+                <field name="max_width" type="number" default="1280" label="Max. Bildbreite (px)" 
+                    description="Bilder werden auf diese Breite verkleinert. Standard ist 1280px." />
+                
+                <field name="quality" type="number" default="80" label="WebP Qualität (1-100)" 
+                    description="Ein Wert zwischen 75 und 85 wird empfohlen." />
+                
+                <field name="debug_mode" type="list" default="0" label="Debug Modus">
+                    <option value="0">Aus</option>
+                    <option value="1">An (Fehlermeldungen im Log protokollieren)</option>
+                </field>
+            </fieldset>
+
+            <fieldset name="stats" label="📊 Statistik &amp; Wartung">
+                <field name="stats_explanation" type="note" label="Performance-Statistik" 
+                    description="Die aktuelle Traffic-Ersparnis und die Anzahl der konvertierten Bilder wird oben in der Systemnachricht angezeigt." />
+                
+                <field name="spacer1" type="spacer" hr="true" />
+
+                <field name="clear_button" type="note" label="Cache Management"
+                    description="&lt;a href='index.php?option=com_plugins&amp;clearWebp=1' class='btn btn-danger' style='color:white;'&gt;WebP-Speicher jetzt leeren&lt;/a&gt;" />
+                <field name="clear_hint" type="note" 
+                    description="&lt;small&gt;Hinweis: Der Deep-Clean entfernt generierte WebP-Dateien aus dem Cache und bereinigt gezielt WebP-Kopien in Ihren Originalordnern. Andere, manuell hochgeladene WebP-Dateien, die nicht vom Plugin umgewandelt wurde, bleiben erhalten.&lt;/small&gt;" />
             </fieldset>
         </fields>
     </config>
