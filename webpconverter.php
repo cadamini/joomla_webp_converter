@@ -100,8 +100,21 @@ class PlgSystemWebpconverter extends CMSPlugin {
         
         $info = @getimagesize($source);
         if (!$info) return false;
+
         $img = ($info['mime'] == 'image/jpeg') ? @imagecreatefromjpeg($source) : @imagecreatefrompng($source);
         if (!$img) return false;
+
+        // Rotation in memory only (original file is untouched)
+        if ($info['mime'] == 'image/jpeg' && function_exists('exif_read_data')) {
+            $exif = @exif_read_data($source);
+            if (isset($exif['Orientation'])) {
+                switch ($exif['Orientation']) {
+                    case 3: $img = imagerotate($img, 180, 0); break;
+                    case 6: $img = imagerotate($img, -90, 0); break;
+                    case 8: $img = imagerotate($img, 90, 0); break;
+                }
+            }
+        }
 
         if ($info['mime'] == 'image/png') {
             imagepalettetotruecolor($img);
